@@ -1,5 +1,5 @@
 ﻿// #######################################################
-// Copyright (c) VAVE 2022. All rights reserved.
+// Copyright (c) VAVE 2022-23. All rights reserved.
 // VAVE CONFIDENTIAL AND PROPRIETARY
 // 
 // File: Form1.cs
@@ -7,6 +7,7 @@
 // 
 // Author: B. Sugiyama (bsugiyama@vavestudios.com)
 // Date: 2022/12/29
+// Last Updated: 2023/01/03
 // #######################################################
 // 
 
@@ -15,10 +16,12 @@ using System;
 using System.Windows.Forms;
 using System.IO;
 using static DesktopWidgets.Utilities;
+using System.Collections.Generic;
 
 namespace DesktopWidgets {
     public partial class Form1 : Form {
         string saveDataPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\VAVE\\DesktopWidgets\\widgets.json";
+        string currentVer = "1.1.0";
 
         public Form1() {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace DesktopWidgets {
         public void LoadData() {
             var json = JsonConvert.DeserializeObject<SerializationSchema.Root>(File.ReadAllText(saveDataPath));
 
-            if(json.Version == "1.0.0") {
+            if (json.Version == currentVer) {
                 foreach (var widget in json.OpenWidgets) {
                     var frm = new Widget(widget.Path);
                     frm.Show();
@@ -41,29 +44,36 @@ namespace DesktopWidgets {
         }
 
         public void SaveData() {
-            var root = new SerializationSchema.Root();
+            try {
+                var root = new SerializationSchema.Root();
 
-            foreach (Form frm in Application.OpenForms) {
-                if(frm.GetType() == typeof(Widget)) {
-                    Widget widget = (Widget)frm;
+                root.OpenWidgets = new List<SerializationSchema.OpenWidget>();
 
-                    var entry = new SerializationSchema.OpenWidget();
+                foreach (Form frm in Application.OpenForms) {
+                    if (frm.GetType() == typeof(Widget)) {
+                        Widget widget = (Widget)frm;
 
-                    entry.Location = PointToJson(frm.Location);
-                    entry.Scale = SizeToJson(frm.Size);
+                        var entry = new SerializationSchema.OpenWidget();
 
-                    entry.Path = widget.FilePath;
+                        entry.Location = PointToJson(frm.Location);
+                        entry.Scale = SizeToJson(frm.Size);
 
-                    root.OpenWidgets.Add(entry);
+                        entry.Path = widget.FilePath;
+
+                        root.OpenWidgets.Add(entry);
+                    }
                 }
+
+                root.LastSaved = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                root.Version = currentVer;
+
+                var serialized = JsonConvert.SerializeObject(root);
+
+                File.WriteAllText(saveDataPath, serialized);
             }
-
-            root.LastSaved = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            root.Version = "1.0.0";
-
-            var serialized = JsonConvert.SerializeObject(root);
-
-            File.WriteAllText(saveDataPath, serialized);
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -71,7 +81,7 @@ namespace DesktopWidgets {
         }
 
         private void fromFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(openFileDialog1.ShowDialog() == DialogResult.OK) {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK) {
                 var form = new Widget(openFileDialog1.FileName);
                 form.Show();
             }

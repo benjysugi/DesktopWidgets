@@ -31,11 +31,11 @@
             this.fromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearWidgetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +65,7 @@
             this.fromFileToolStripMenuItem,
             this.fromURLToolStripMenuItem});
             this.newWidgetToolStripMenuItem.Name = "newWidgetToolStripMenuItem";
-            this.newWidgetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newWidgetToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.newWidgetToolStripMenuItem.Text = "New Widget";
             // 
             // fromFileToolStripMenuItem
@@ -84,23 +84,30 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // clearWidgetsToolStripMenuItem
             // 
             this.clearWidgetsToolStripMenuItem.Name = "clearWidgetsToolStripMenuItem";
-            this.clearWidgetsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearWidgetsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.clearWidgetsToolStripMenuItem.Text = "Clear Widgets";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -109,13 +116,6 @@
             this.openFileDialog1.DefaultExt = "png";
             this.openFileDialog1.Filter = "Alll Types|*.png;*.jpg;*.jpeg;*.bmp";
             this.openFileDialog1.Title = "Select a file to create a widget";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // timer1
             // 
@@ -128,7 +128,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
