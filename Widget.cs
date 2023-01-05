@@ -19,6 +19,11 @@ namespace DesktopWidgets {
             FilePath = imagePath;
         }
 
+        public void setStyle() {
+            this.FormBorderStyle = FormBorderStyle.None;
+            button1.Visible = false;
+        }
+
         private void button1_Click(object sender, EventArgs e) {
             this.FormBorderStyle = FormBorderStyle.None;
             button1.Visible = false;

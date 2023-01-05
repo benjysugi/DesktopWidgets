@@ -7,7 +7,7 @@
 // 
 // Author: B. Sugiyama (bsugiyama@vavestudios.com)
 // Date: 2022/12/29
-// Last Updated: 2023/01/03
+// Last Updated: 2023/01/05
 // #######################################################
 // 
 
@@ -34,6 +34,9 @@ namespace DesktopWidgets {
                 foreach (var widget in json.OpenWidgets) {
                     var frm = new Widget(widget.Path);
                     frm.Show();
+
+                    frm.setStyle();
+
                     frm.Location = JsonToPoint(widget.Location);
                     frm.Size = JsonToSize(widget.Scale);
                 }
